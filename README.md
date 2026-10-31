@@ -115,9 +115,8 @@ Screenshots are stored in `screenshots/`:
 | `docker ps` / `docker ps -a` | `screenshots/03_docker_ps.png` |
 | `docker logs` / `docker inspect` | `screenshots/04_docker_logs_inspect.png` |
 | JupyterLab with the notebook open | `screenshots/05_jupyterlab.png` |
-| Notebook after Restart and Run All | `screenshots/06_notebook_run.png` |
-| Docker Hub repository page | `screenshots/07_docker_hub.png` |
-| Teammate pulling and running the image | `screenshots/08_pull_and_run.png` |
+| Docker Hub repository page | `screenshots/06_docker_hub.png` |
+| Teammate pulling and running the image | `screenshots/07_pull_and_run.png` |
 
 ## 4. Docker Hub distribution
 
