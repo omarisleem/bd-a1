@@ -1,0 +1,45 @@
+K-MEANS CLUSTERING
+======================================================================
+
+Records clustered: 49582 | Features: TF-IDF (stop words removed, 5000 terms)
+
+k SELECTION (k = 2 to 15)
+ k  inertia  silhouette
+ 2  47887.2      0.0020
+ 3  47822.6      0.0001
+ 4  47764.8     -0.0000
+ 5  47718.1     -0.0001
+ 6  47676.8     -0.0002
+ 7  47641.8     -0.0000
+ 8  47604.2      0.0001
+ 9  47564.5      0.0005
+10  47534.3      0.0006
+11  47495.7      0.0003
+12  47474.9      0.0004
+13  47450.0      0.0002
+14  47419.2      0.0007
+15  47391.3      0.0008
+
+Chosen k: 2 (highest silhouette)
+Silhouette score (20,000-record random sample): 0.0020
+
+CLUSTER SIZES
+0    20098
+1    29484
+
+TOP TERMS PER CLUSTER
+Cluster 0 (20098 records): just, like, bad, it's, good, really, don't, movies, time, watch, think, acting
+Cluster 1 (29484 records): story, great, like, good, it's, time, just, best, love, life, characters, films
+
+COMPARISON WITH SENTIMENT LABELS (rows = clusters)
+sentiment  negative  positive
+cluster                      
+0             14728      5370
+1              9970     19514
+
+INTERPRETATION
+k was tested from 2 to 15 and k = 2 has the highest silhouette score (0.0020), and it also matches the two sentiment classes. However, every silhouette score is close to zero (the second best is 0.0008 at k = 15, and several are zero or slightly negative), and inertia falls by only about 1% across the whole range (47,887 to 47,391), so there is no elbow. The reviews do not form well-separated groups in TF-IDF space. A wider search up to k = 99 gave a nominal maximum at k = 92 (silhouette about 0.004), but that difference is within noise and its clusters were mostly narrow topic or genre groups.
+
+Cluster 0 (20,098 reviews) has top terms such as just, like, bad, really, don't, movies, watch and acting. 73.3% of its reviews are negative. Cluster 1 (29,484 reviews) has top terms such as story, great, best, love, life, characters and films: more descriptive language about plot and characters, together with praise. 66.2% of its reviews are positive.
+
+Compared with the known labels, the clusters follow sentiment only partly. 69.1% of reviews (34,242 of 49,582) fall in the cluster where their own sentiment is the majority. But cluster 1 still contains 9,970 negative reviews (about 40% of all negatives), so K-Means did not recover the classes. K-Means never sees the labels, and its clusters reflect a mix of sentiment words and writing style or topic.

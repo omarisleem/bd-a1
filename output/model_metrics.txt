@@ -1,0 +1,53 @@
+SUPERVISED TEXT CLASSIFICATION
+======================================================================
+
+Train: 39665 | Test: 9917 (80/20, stratified, random_state=42)
+Features: TF-IDF on cleaned_text (fit on training data only)
+Precision, recall and F1 use the positive class (label 1).
+
+MODEL COMPARISON (test set)
+           MultinomialNB  LogisticRegression
+accuracy          0.8603              0.8968
+precision         0.8731              0.8880
+recall            0.8445              0.9092
+f1                0.8585              0.8984
+
+MULTINOMIAL NAIVE BAYES
+              precision    recall  f1-score   support
+
+    negative     0.8483    0.8763    0.8621      4940
+    positive     0.8731    0.8445    0.8585      4977
+
+    accuracy                         0.8603      9917
+   macro avg     0.8607    0.8604    0.8603      9917
+weighted avg     0.8607    0.8603    0.8603      9917
+
+Confusion matrix (rows = true neg/pos, cols = predicted neg/pos):
+[[4329  611]
+ [ 774 4203]]
+
+LOGISTIC REGRESSION
+              precision    recall  f1-score   support
+
+    negative     0.9062    0.8844    0.8952      4940
+    positive     0.8880    0.9092    0.8984      4977
+
+    accuracy                         0.8968      9917
+   macro avg     0.8971    0.8968    0.8968      9917
+weighted avg     0.8971    0.8968    0.8968      9917
+
+Confusion matrix (rows = true neg/pos, cols = predicted neg/pos):
+[[4369  571]
+ [ 452 4525]]
+
+MOST NEGATIVE TERMS (LR): worst, bad, awful, waste, boring, poor, terrible, nothing, worse, horrible, poorly, dull, fails, stupid, disappointment
+MOST POSITIVE TERMS (LR): great, excellent, best, perfect, amazing, wonderful, loved, enjoyed, brilliant, fun, love, favorite, well, today, superb
+
+INTERPRETATION
+Logistic Regression outperformed Multinomial Naive Bayes on every metric: accuracy 89.7% vs 86.0% and F1 0.898 vs 0.859. Naive Bayes assumes words are independent, which is unrealistic for text, while Logistic Regression learns a weight for each term and copes better with correlated words.
+
+Naive Bayes is slightly unbalanced: its precision for the positive class (0.873) is higher than its recall (0.845), so it misses more positive reviews than it wrongly labels positive and leans toward predicting negative. Logistic Regression is more balanced (positive precision 0.888, recall 0.909; negative precision 0.906, recall 0.884), and both classes get similar F1 (0.895 negative, 0.898 positive), so its errors are spread evenly.
+
+LIMITATIONS
+1. TF-IDF is a bag of words: word order and context are lost, so negation, sarcasm and mixed reviews are hard.
+2. A single train/test split was used; cross-validation would give a more reliable estimate.
