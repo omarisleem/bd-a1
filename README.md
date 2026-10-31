@@ -42,6 +42,14 @@ bd-a1/
 ├── README.md
 ├── requirements.txt
 └── screenshots
+    ├── 01_docker_build.png
+    ├── 02_docker_images.png
+    ├── 03_docker_ps.png
+    ├── 04_docker_logs.png
+    ├── 05_jupyterlab.png
+    ├── 06_docker_hub.png
+    ├── 07_pull_and_run.png
+    └── 08_pull_and_run.png
 ```
 
 ## 1. Build the image
@@ -100,9 +108,7 @@ Bind mount vs. volume: a bind mount maps a specific host folder you choose, so y
 ```bash
 docker images                 # custom image exists
 docker ps                     # running containers
-docker ps -a                  # all containers, including stopped ones
 docker logs bd-a1             # JupyterLab startup log and token URL
-docker inspect bd-a1          # full configuration: mounts, ports, image, WORKDIR
 ```
 
 
@@ -112,11 +118,11 @@ Screenshots are stored in `screenshots/`:
 |----------|------|
 | Successful `docker build` | `screenshots/01_docker_build.png` |
 | `docker images` | `screenshots/02_docker_images.png` |
-| `docker ps` / `docker ps -a` | `screenshots/03_docker_ps.png` |
-| `docker logs` / `docker inspect` | `screenshots/04_docker_logs_inspect.png` |
+| `docker ps`| `screenshots/03_docker_ps.png` |
+| `docker logs`| `screenshots/04_docker_logs.png` |
 | JupyterLab with the notebook open | `screenshots/05_jupyterlab.png` |
 | Docker Hub repository page | `screenshots/06_docker_hub.png` |
-| Teammate pulling and running the image | `screenshots/07_pull_and_run.png` |
+| Teammate pulling and running the image | `screenshots/07_pull_and_run.png`, `screenshots/08_pull_and_run.png`|
 
 ## 4. Docker Hub distribution
 
@@ -151,22 +157,21 @@ The image already contains the notebook and dataset, so the verifier only needs 
 # 1. Get the project (unzip or git clone), then enter it
 cd bd-a1
 
-# 2. Make sure data/dataset.csv exists (see Dataset section)
 
-# 3. Build the image
+# 2. Build the image
 docker build -t omarisleem/bd-a1:latest .
 
-# 4. Run the container with the output bind mount
+# 3. Run the container with the output bind mount
 mkdir -p output/figures
 docker run -d --name bd-a1 -p 8888:8888 \
   -v "$(pwd)/output:/home/jovyan/bd-a1/output" \
   omarisleem/bd-a1:latest
 
-# 5. Open the URL printed by this command in a browser
+# 4. Open the URL printed by this command in a browser
 docker logs bd-a1
 
-# 6. In JupyterLab open notebook/analysis.ipynb and run Kernel -> Restart and Run All
-# 7. Check the results on the host in output/
+# 5. In JupyterLab open notebook/analysis.ipynb and run Kernel -> Restart and Run All
+# 6. Check the results on the host in output/
 ls output output/figures
 ```
 
